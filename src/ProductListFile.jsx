@@ -10,13 +10,12 @@ import { dataFromAPI } from "./dataFromAPI";
 
 
 function ProductListFile() {
-  console.log('App component is running')
+  
   const [productList, setProductList] = useState([]);
   const [sort, setSort] = useState('default');
   const [Query, setQuery] = useState('');
   // const [data, setData] = usestate([]);
-  console.log(Query);
-  console.log(sort);
+ 
   useEffect(function(){
     const xyz = getProductlist();
     xyz.then(function(response){
@@ -25,8 +24,7 @@ function ProductListFile() {
     dataFromAPI.push(...d);
     });
      }, []);
-  
-  
+ 
 
   let data = productList.filter(function(item){
     const TitleLowerCase = item.title.toLowerCase();
@@ -69,7 +67,7 @@ return TitleLowerCase.indexOf(QueryLowerCase) != -1;
       </div>
       <Routes>
         <Route index element={<ProductListPage products={data} />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/products/:id" element={<ProductDetail/>} />
       </Routes>
     </>
   );

@@ -7,15 +7,28 @@ import { data } from "autoprefixer";
 
 
 function ProductDetail() {
+    const [count, updateCount] = useState('0');
     const { id } = useParams();
     const[product, setProduct] = useState('');
+    const[productId, setproductId] = useState('');
+    setproductId(id);
+    
     useEffect(function(){
  const p = getProductData(id);
  p.then(function(response){
     setProduct(response.data);
+    
    });
     
     }, []);
+    // function handlechange(event){
+    //     updateCount(+event.target.value);
+        
+    // }
+    
+    // function onhandleclick(productId, count){
+    //     onAddToCart(productId, count);
+    // }
    
 
 
@@ -25,8 +38,8 @@ function ProductDetail() {
             <img className="w-1/2 rounded" src={product.thumbnail} alt="" />
             <h1 className="text-bold">{product.title}</h1>
             <h1 className="text-bold text-blue">{product.description}</h1>
-            <input className="border border-black w-8 rounded" type="number" />
-            <button className="bg-red-500 w-24 rounded p-2">Add to cart</button>
+            <input className="border border-black w-8 rounded" type="number" onChange={handlechange}/>
+            <button className="bg-red-500 w-24 rounded p-2" >Add to cart</button>
         </div></>: (<div>Loading...</div>)}
         </>
     );
