@@ -12,9 +12,18 @@ import Navbar from "./Navbar";
 
 function App() {
   
+  const [cart, setCart] = useState({});
   function onhandleChange(productId, count){
-console.log("App.jsx --productId:", productId , "count:", count);
-  }
+ let oldcount = cart[productId] || 0;
+ const newCart = {...cart, [productId]: oldcount + count}
+ setCart(newCart);
+ const cartString = JSON.stringify(newCart);
+ localStorage.setItem("myCart", cartString);
+  };
+  const totalCount = object.keys(cart).reduce(function(previous, current){
+    return previous + cart[current]
+  },0);
+  console.log(totalCount);
   
   const [productList, setProductList] = useState([]);
   const [sort, setSort] = useState('default');
