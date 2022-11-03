@@ -13,6 +13,7 @@ function Navbar({totalProducts}){
     <div className="flex flex-col">
     <span className="m-2">{totalProducts}</span>
     <div className="text-3xl "><AiOutlineShoppingCart/></div>
+    
     </div>
     </div>
     );

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { dataFromAPI } from "./dataFromAPI";
 import { getProductData } from "./api";
 import { data } from "autoprefixer";
-
+import {GrLinkNext, GrLinkPrevious} from "react-icons/Gr"
 
 
 function ProductDetail({onAddToCart}) {
@@ -44,6 +44,8 @@ function ProductDetail({onAddToCart}) {
             
             <input className="border border-black w-8 rounded" type="number" onChange={handlechange}/>
             <button className="bg-red-500 w-24 rounded p-2" onClick={onButtonClick} >Add to cart</button>
+            <span className="flex flex-row justify-between"><button><GrLinkPrevious path="/product/:id-1"/></button><button><GrLinkNext path="/product/:id+1"/></button>
+            </span>
         </div></>: (<div>Loading...</div>)}
         </>
     );
