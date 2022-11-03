@@ -11,15 +11,21 @@ import Navbar from "./Navbar";
 
 
 function App() {
-  
+  const [totalCount, setTotalCount] = useState(0);
   const [cart, setCart] = useState({});
   function AddToCart(productId, count){
- let oldcount = cart[productId] || 0;
- const newCart = {...cart, [productId]: oldcount + count}
- setCart(newCart);
- const cartString = JSON.stringify(newCart);
- localStorage.setItem("myCart", cartString);
+//  let oldcount = cart[productId] ;
+
+
+setTotalCount(count + totalCount);
+//  const newCart = {...cart, [productId]: oldcount + count}
+//  setCart(newCart);
+ 
+//  const cartString = JSON.stringify(newCart);
+//  localStorage.setItem("myCart", cartString);
   };
+  
+ 
   // const totalCount = object.keys(cart).reduce(function(output, current){
   //   return output + cart[current]
   // },0);
@@ -70,7 +76,7 @@ return TitleLowerCase.indexOf(QueryLowerCase) != -1;
 
   return (
     <>
-    <Navbar />
+    <Navbar  totalProducts = {totalCount}/>
     <div className="flex justify-between">
       <input className="border border-green-500 rounded-md m-10 p-4" onChange={handleQuery} value={Query}
       type="text" placeholder="search" />

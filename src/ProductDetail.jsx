@@ -10,7 +10,6 @@ function ProductDetail({onAddToCart}) {
     const [count, setCount] = useState(1);
     const {id} = useParams();
     const[product, setProduct] = useState('');
-   
     
     useEffect(function(){
  const p = getProductData(id);
