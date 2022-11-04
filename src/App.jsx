@@ -11,7 +11,9 @@ import Navbar from "./Navbar";
 
 
 function App() {
-  const [cart, setCart] = useState({});
+  const savedLocalString = localStorage.getItem("myCart");
+  const savedData = JSON.parse(savedLocalString) || {};
+  const [cart, setCart] = useState(savedData);
   function AddToCart(productId, count){
  let oldcount = cart[productId] || 0 ;
 
@@ -22,7 +24,7 @@ function App() {
  const cartString = JSON.stringify(newCart);
  localStorage.setItem("myCart", cartString);
   };
-  console.log(cart);
+  
   
  
   const totalCount = Object.keys(cart).reduce(function(output, current){
