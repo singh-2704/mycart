@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, Routes, Route } from "react-router-dom";
+import { useParams, Link,} from "react-router-dom";
 import { dataFromAPI } from "./dataFromAPI";
 import { getProductData } from "./api";
 import { data } from "autoprefixer";
-import {GrLinkNext, GrLinkPrevious} from "react-icons/Gr"
+import {HiArrowSmRight, HiArrowSmLeft} from "react-icons/Hi"
 
 
 
 function ProductDetail({onAddToCart}) {
     const [count, setCount] = useState(1);
-    const {id} = useParams();
+    const id = +(useParams().id);
     const[product, setProduct] = useState('');
     
     useEffect(function(){
@@ -19,7 +19,7 @@ function ProductDetail({onAddToCart}) {
     
    });
     
-    }, []);
+    }, [id]);
     
     function onButtonClick(event){
       onAddToCart(id, count);
@@ -37,9 +37,7 @@ function ProductDetail({onAddToCart}) {
 
     return (
         <>
-        {/* <Routes>
-            <Route path="/products/:id+1" element = {<ProductDetail/>}/>
-        </Routes> */}
+        
         {product ? <><div className="w-30 flex flex-col m-2 p-2">
             <img className="w-1/2 rounded" src={product.thumbnail} alt="" />
             <h1 className="text-bold">{product.title}</h1>
@@ -48,8 +46,10 @@ function ProductDetail({onAddToCart}) {
             
             <input className="border border-black w-8 rounded" type="number" onChange={handlechange}/>
             <button className="bg-red-500 w-24 rounded p-2" onClick={onButtonClick} >Add to cart</button>
-            <span className="flex flex-row justify-between"><Link>Previous<GrLinkPrevious to={"/products/" + (id-1)}/></Link><Link>Next<GrLinkNext to={"/products/" + (id +1)}/></Link>
-            </span>
+            <div className="flex justify-between">
+            <Link to={"/products/" + (id-1)}><HiArrowSmLeft />Previous</Link>
+            <Link to={"/products/" + (id+1)}><HiArrowSmRight />Next</Link>
+            </div>
         </div></>: (<div>Loading...</div>)}
         </>
     );
