@@ -11,10 +11,26 @@ import Navbar from "./Navbar";
 
 
 function App() {
+  const savedLocalString = localStorage.getItem("myCart");
+  const savedData = JSON.parse(savedLocalString) || {};
+  const [cart, setCart] = useState(savedData);
+  function AddToCart(productId, count){
+ let oldcount = cart[productId] || 0 ;
+
+
+ const newCart = {...cart, [productId]: oldcount + count}
+ setCart(newCart);
+ 
+ const cartString = JSON.stringify(newCart);
+ localStorage.setItem("myCart", cartString);
+  };
   
-  function onhandleChange(productId, count){
-console.log("App.jsx --productId:", productId , "count:", count);
-  }
+  
+ 
+  const totalCount = Object.keys(cart).reduce(function(output, current){
+    return output + cart[current]
+  },0);
+  
   
   const [productList, setProductList] = useState([]);
   const [sort, setSort] = useState('default');
@@ -36,9 +52,7 @@ console.log("App.jsx --productId:", productId , "count:", count);
 return TitleLowerCase.indexOf(QueryLowerCase) != -1;
 
 });
-function onhandlechange(){
-  onAddToCart();
-}
+
 
 
   function handleQuery(event){
@@ -63,7 +77,7 @@ function onhandlechange(){
 
   return (
     <>
-    <Navbar/>
+    <Navbar totalProducts = {totalCount} />
     <div className="flex justify-between">
       <input className="border border-green-500 rounded-md m-10 p-4" onChange={handleQuery} value={Query}
       type="text" placeholder="search" />
@@ -75,7 +89,7 @@ function onhandlechange(){
       </div>
       <Routes>
         <Route index element={<ProductListPage products={data} />} />
-        <Route path="/products/:id" element={<ProductDetail onAddToCart={onhandleChange}/>} />
+        <Route path="/products/:id" element={<ProductDetail onAddToCart={AddToCart}/>} />
       </Routes>
     </>
   );
